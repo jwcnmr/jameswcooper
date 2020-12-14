@@ -23,9 +23,10 @@ class Player():
 
     # play one game
     def playit(self):
-        playval = ChoiceButton.gvar.get()
         index  = int(ChoiceButton.gvar.get())
         self.play = Player.moves[index]
+
+
 
     def countWin(self):
         self.wincount += 1

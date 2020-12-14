@@ -4,18 +4,15 @@ from tkinter import *
 from tkinter.ttk import *
 
 
-# Command interface
-class Command():
-    def comd(self): pass
-
 class Mediator() :
-    def setButton(self,button):
-        self.button = button
+    def __init__(self, button):
+        self.button = button    # save the button reference
 
+    # called when a radiobutton is selected
     def choiceClick(self):
-        self.button['state']=NORMAL
+        self.button['state']=NORMAL # enable the button
 
-class ChoiceButton(Radiobutton, Command):
+class ChoiceButton(Radiobutton):
     gvar = None
 
     def __init__(self, rt, label, index, med):
@@ -23,8 +20,6 @@ class ChoiceButton(Radiobutton, Command):
                          variable=ChoiceButton.gvar,
                          command=self.comd,
                          value=index)
-        self.text = label
-        self.index = index
         self.med = med
 
     def comd(self):
@@ -41,8 +36,6 @@ class Player():
         self.wincount = 0  # counter of wins
 
     def playit(self):
-        playval = ChoiceButton.gvar.get()
-        # if playval >= 0:
         index = int(ChoiceButton.gvar.get())
         self.play = Player.moves[index]
 
@@ -104,18 +97,22 @@ class Builder():
     def build(self):
         root = tk.Tk()
         root.geometry("300x200")
+        root.title("Rock, paper, Scissors")
         lbf = LabelFrame(root, text="Plays")
         lbf.grid(row=0, column=0, rowspan=3, pady=10, padx=10)
         ChoiceButton.gvar = IntVar()
         ChoiceButton.gvar.set(-1)
-        med = Mediator()
-        paperButton = ChoiceButton(lbf, "Paper", 0, med).grid(row=0, column=0, sticky=W)
-        rockButton = ChoiceButton(lbf, "Rock", 1, med).grid(row=1, column=0, sticky=W)
-        scsrsButton = ChoiceButton(lbf, "Scissors", 2, med).grid(row=2, column=0, sticky=W)
+
         playButton = Button(root, text="Play", command=self.playgame)
         playButton.grid(row=3, column=0, pady=20)
-        playButton['state']=DISABLED
-        med.setButton(playButton)
+        playButton['state'] = DISABLED
+        med = Mediator(playButton)
+
+
+        ChoiceButton(lbf, "Paper", 0, med).grid(row=0, column=0, sticky=W)
+        ChoiceButton(lbf, "Rock", 1, med).grid(row=1, column=0, sticky=W)
+        ChoiceButton(lbf, "Scissors", 2, med).grid(row=2, column=0, sticky=W)
+
 
 
         self.scoreLabel = Label(text="scores", foreground="blue")
