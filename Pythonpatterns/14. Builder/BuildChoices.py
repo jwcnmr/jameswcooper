@@ -15,9 +15,9 @@ from tkinter import ttk
    that the listbox and checkbox choice Frames
    are derived from"""
 class MultiChoice:
-    def __init__(self, panel, choiceList):
+    def __init__(self, frame, choiceList):
         self.choices = choiceList    #save list
-        self.panel = panel
+        self.frame = frame
 
    #to be implemented in derived classes
     def makeUI(self): pass  #fill a Frame of components
@@ -25,7 +25,7 @@ class MultiChoice:
 
     #clears out the components of the frame
     def clearAll(self):
-        for widget in self.panel.winfo_children():
+        for widget in self.frame.winfo_children():
             widget.destroy()
 
 # derived class from Button that contains empty comd function
@@ -61,7 +61,7 @@ class ListboxChoice( MultiChoice):
     def makeUI(self):
        self.clearAll()
       #create a panel containing a list box
-       self.list = Listbox(self.panel, selectmode=MULTIPLE)	#list box
+       self.list = Listbox(self.frame, selectmode=MULTIPLE)	#list box
        self.list.pack()
 
     #add investments into list box
@@ -105,7 +105,7 @@ class CheckboxChoice(MultiChoice):
         r = 0
         for name in self.choices:
             var = IntVar()  # create an IntVar
-            cb = Checkbox(self.panel, name, var)  # create checkbox
+            cb = Checkbox(self.frame, name, var)  # create checkbox
             self.boxes.append(cb)  # add it to list
             cb.grid(column=0, row=r, sticky=W)  # grid layout
             r += 1
@@ -123,13 +123,13 @@ class ChoiceFactory:
    """This class returns a Panel containing
    a set of choices displayed by one of
    several UI methods. """
-   def getChoiceUI(self, choices, panel):
+   def getChoiceUI(self, choices, frame):
         if len(choices) <=3:
         #return a panel of checkboxes
-            return CheckboxChoice(panel, choices)
+            return CheckboxChoice(frame, choices)
         else:
         #return a multi-select list box panel
-            return ListboxChoice(panel, choices)
+            return ListboxChoice(frame, choices)
 
 """List of securities and name of type of security"""
 class Securities() :
@@ -159,12 +159,12 @@ class BuildUI():
         self.seclist.append(self.mutuals)
 
         # Fill left list box with security types
-        lpanel = Frame(self.root)     # frame for left side
-        lpanel.grid(row=0, column=0)
+        lframe = Frame(self.root)     # frame for left side
+        lframe.grid(row=0, column=0)
 
         # Note that Windows 10 requires the exportselection setting
         # or clicks on either listbox will be received
-        self.leftList = Listbox(lpanel, exportselection=FALSE)
+        self.leftList = Listbox(lframe, exportselection=FALSE)
         self.leftList.pack()
         # add in names of types of securities
         for sec in self.seclist:
@@ -172,8 +172,8 @@ class BuildUI():
 
         # connect select event to the lbselect method
         self.leftList.bind('<<ListboxSelect>>', self.lbselect)
-        self.rpanel = Frame(self.root, name="right")
-        self.rpanel.grid(row=0, column=1)
+        self.rframe = Frame(self.root, name="right")
+        self.rframe.grid(row=0, column=1)
         self.showbutton = ShowButton(self, self.root)
         self.showbutton.grid(row=1, column=0, columnspan=2)
 
@@ -185,7 +185,7 @@ class BuildUI():
         i = int(index[0])  # this is the actual index
         securities = self.seclist[i]
         cf = ChoiceFactory()
-        self.cui = cf.getChoiceUI(securities.getList(), self.rpanel)
+        self.cui = cf.getChoiceUI(securities.getList(), self.rframe)
         self.cui.makeUI()         #creates right hand panel
 
    # returns list of selected items no matter what display

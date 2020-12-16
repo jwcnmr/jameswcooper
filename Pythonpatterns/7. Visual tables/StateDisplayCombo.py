@@ -67,12 +67,11 @@ class BuildUI():
         self.combo.grid(column=0, row=0, rowspan=8, padx=10)
 
         # create 4 labels on right
-        labelframe = LabelFrame(root, text="State data")
-        labelframe.grid(column=2, row=1, rowspan=4)
-        self.lbstate = Label(labelframe, text="")
-        self.lbabbrev = Label(labelframe, text="", foreground="red")
-        self.lbcapital = Label(labelframe,text="")
-        self.lbfounded = Label(labelframe,text="")
+
+        self.lbstate = Label( text="")
+        self.lbabbrev = Label( text="", foreground="red")
+        self.lbcapital = Label(text="")
+        self.lbfounded = Label(text="")
 
 
         self.lbstate.grid( column=2, row=0, sticky=NW)  # left aligned
@@ -82,10 +81,8 @@ class BuildUI():
 
     # receives the combo click event and loads the labels with state info
     def onselect(self, evt):
-        print (self.combo.get())
         index = self.combo.current()
         state = self.states[index]
-
         self.loadLabels(state)
 
     def loadLabels(self, state):
@@ -98,7 +95,7 @@ class BuildUI():
 def main():
     sl = StateList(DATA_FILE)
     root = Tk()
-    root.geometry("450x300")  # this one is pretty confusing
+    root.geometry("300x200")  # this one is pretty confusing
     print ("starting")
     bdui = BuildUI(root, sl.getStateList())
 
