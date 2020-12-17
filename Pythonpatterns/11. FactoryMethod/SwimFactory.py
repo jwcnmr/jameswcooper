@@ -70,9 +70,9 @@ class StraightSeeding():
           # so we start with last heat  # and work downwards
         for i in range(0, lastLanes) :
             sw = asw[i] # get each swimmer
-            sw.setLane(self.lanes[j]) # copy in lane
+            sw.lane= int(self.lanes[j]) # copy in lane
             j += 1
-            sw.setHeat(heats) # and heat
+            sw.heat = int(heats) # and heat
             if (j >= self.numLanes):
                 heats -= 1 # next heat
                 j=0
@@ -83,9 +83,9 @@ class StraightSeeding():
       #for (int i = lastLanes-1; i < count; i++):
         for i in range(lastLanes-1, self.count):
              sw = asw[i]
-             sw.setLane(self.lanes[j])
+             sw.lane= int(self.lanes[j])
              j += 1
-             sw.setHeat(heats)
+             sw.heat= int(heats)
 
     # copy from array back into list
         swimmers = []
@@ -101,7 +101,7 @@ class StraightSeeding():
 
         for i in range(0, self.count):
             for j in range(i, self.count):
-                if (swmrs[i].getTime() > swmrs[j].getTime()):
+                if (swmrs[i].time > swmrs[j].time):
                     swtemp = swmrs[i]
                     swmrs[i] = swmrs[j]
                     swmrs[j] = swtemp
@@ -149,8 +149,8 @@ class CircleSeeding(StraightSeeding):
 
         for j in range(0, self.numLanes)    :
             for k in range(0, circle):
-                self.swimmers[i].setLane(self.lanes[j])
-                self.swimmers[i].setHeat(self.numHeats - k)
+                self.swimmers[i].lanes = int(self.lanes[j])
+                self.swimmers[i].heat = int(self.numHeats - k)
                 i += 1
 #------------
 class Swimmer():
@@ -176,14 +176,6 @@ class Swimmer():
      def getName(self):
           return self.frname+" "+self.lname #combine names
 
-     def getAge(self):  return self.age
-     def getClub(self): return self.club
-     def getSeed(self): return self.seedtime
-     def getTime(self): return self.time
-     def getHeat(self): return self.heat
-     def getLane(self):  return self.lane
-     def setLane(self,lane):  self.lane=int(lane)
-     def setHeat(self, heat): self.heat = int(heat)
 #----------
 class BuildUI():
     def __init__(self, root):
@@ -206,8 +198,8 @@ class BuildUI():
         self.swlist.delete(0, END)      #clear the listbox
         #load new values into list box
         for sw in swmrs:
-           self.swlist.insert(END, str(sw.getHeat())+" "+ str(sw.getLane())+" "
-                              + sw.getName()+" "+ str(sw.getAge())+ " "+sw.getSeed())
+           self.swlist.insert(END, str(sw.heat)+" "+ str(sw.lane)+" "
+                              + sw.getName()+" "+ str(sw.age)+ " "+sw.seedtime)
 
     #creates the two listbox user interface
     def build(self):

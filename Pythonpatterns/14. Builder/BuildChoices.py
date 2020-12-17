@@ -54,13 +54,13 @@ class ShowButton(DButton):
 #----------------------------------------------
 class ListboxChoice( MultiChoice):
 
-    def  __init__(self, panel, choices):
-        super().__init__(panel, choices)
+    def  __init__(self, frame, choices):
+        super().__init__(frame, choices)
 
     # creates and loads the listbox into the frame
     def makeUI(self):
        self.clearAll()
-      #create a panel containing a list box
+      #create a frame containing a list box
        self.list = Listbox(self.frame, selectmode=MULTIPLE)	#list box
        self.list.pack()
 

@@ -51,12 +51,12 @@ class ClearButton(DButton):
 #base Namer class
 class Namer():
     def __init__(self):
-        self.last=""
-        self.first=""
+        self._last=""
+        self._first=""
     def getFirst(self):
-        return self.first
+        return self._first
     def getLast(self):
-        return self.last
+        return self._last
 
 #derived namer class for First <space> Last
 class FirstFirst(Namer):
@@ -65,10 +65,10 @@ class FirstFirst(Namer):
         i = namestring.find(" ")    #find space between names
         if i > 0 :
             names = namestring.split()
-            self.first = names[0]
-            self.last = names[1]
+            self._first = names[0]
+            self._last = names[1]
         else:
-            self.last = namestring
+            self._last = namestring
 
 #derived Namer class for Last <comma> First
 class LastFirst(Namer):
@@ -77,12 +77,12 @@ class LastFirst(Namer):
         i = namestring.find(",")  # find comma between names
         if i > 0 :
             names = namestring.split(",")
-            self.last = names[0]
-            self.first = names[1]
+            self._last = names[0]
+            self._first = names[1]
         else:
-            self.last = namestring
+            self._last = namestring
 """The NameFactory returns an instance of the Namer class that separates first and last names
-dependning on whether a comma is present"""
+depending on whether a comma is present"""
 class NamerFactory():
     def __init__(self, namestring):
         self.name = namestring
