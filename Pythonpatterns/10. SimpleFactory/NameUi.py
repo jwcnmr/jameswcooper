@@ -27,15 +27,16 @@ class ComputeButton(DButton):
     def __init__(self, root, namefield, frname, lname):
         super().__init__(root, text="Compute")
         self.entry = namefield
-        self.frname = frname
+        self.frname = frname #fields to fill
         self.lname = lname
 
    #replaces empty comd in base abstract class
     def comd(self):
         name = self.entry.get()
         namer = NamerFactory(name)
-        self.frname.insert(0, namer.getNamer().getFirst())
-        self.lname.insert (0, namer.getNamer().getLast())
+        # get the names and copy them into the fields
+        self.frname.insert(0, namer.getNamer().first)
+        self.lname.insert (0, namer.getNamer().last)
 
 class ClearButton(DButton):
     def __init__(self, root, namefield, frname, lname):
@@ -43,6 +44,7 @@ class ClearButton(DButton):
         self.entry = namefield
         self.frname = frname
         self.lname = lname
+    # clear all fields
     def comd(self):
         self.frname.delete(0, END)
         self.lname.delete(0, END)
@@ -51,12 +53,9 @@ class ClearButton(DButton):
 #base Namer class
 class Namer():
     def __init__(self):
-        self._last=""
-        self._first=""
-    def getFirst(self):
-        return self._first
-    def getLast(self):
-        return self._last
+        self.last=""
+        self.first=""
+
 
 #derived namer class for First <space> Last
 class FirstFirst(Namer):
@@ -65,10 +64,10 @@ class FirstFirst(Namer):
         i = namestring.find(" ")    #find space between names
         if i > 0 :
             names = namestring.split()
-            self._first = names[0]
-            self._last = names[1]
+            self.first = names[0]
+            self.last = names[1]
         else:
-            self._last = namestring
+            self.last = namestring
 
 #derived Namer class for Last <comma> First
 class LastFirst(Namer):
@@ -77,10 +76,10 @@ class LastFirst(Namer):
         i = namestring.find(",")  # find comma between names
         if i > 0 :
             names = namestring.split(",")
-            self._last = names[0]
-            self._first = names[1]
+            self.last = names[0]
+            self.first = names[1]
         else:
-            self._last = namestring
+            self.last = namestring
 """The NameFactory returns an instance of the Namer class that separates first and last names
 depending on whether a comma is present"""
 class NamerFactory():
