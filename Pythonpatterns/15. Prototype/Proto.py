@@ -69,19 +69,6 @@ class Swimmer():
     def getName(self):
         return self.frname + " " + self.lname  # combine names
 
-    def getAge(self):
-        return self.age
-
-    def getClub(self):
-        return self.club
-
-    def getSeed(self):
-        return self.seedtime
-
-    def getTime(self):
-        return self.time
-    def getSex(self):
-        return self.sex
 
 class BuildUI():
     def __init__(self,root):
@@ -128,7 +115,7 @@ class BuildUI():
     def fillList(self, list, swmrs):
         list.delete(0, END)
         for sw in swmrs:
-             text = sw.getName()+" "+str(sw.getAge())+" "+sw.getSeed()+" "+sw.getSex()
+             text = sw.getName()+" "+str(sw.age)+" "+sw.seedtime+" "+sw.sex
              list.insert(END, text)
 
     def sexLoad(self):
@@ -148,7 +135,7 @@ class BuildUI():
     def sbySex(self, swmrs):
         for i in range(0, len(swmrs)):
             for j in range(i, len(swmrs)):
-                if (swmrs[i].getSex() > swmrs[j].getSex()):
+                if (swmrs[i].sex > swmrs[j].sex):
                     swtemp = swmrs[i]
                     swmrs[i] = swmrs[j]
                     swmrs[j] = swtemp
@@ -167,7 +154,7 @@ class BuildUI():
 
         for i in range(0, len(swmrs)):
             for j in range(i, len(swmrs)):
-                if (swmrs[i].getTime() > swmrs[j].getTime()):
+                if (swmrs[i].time > swmrs[j].time):
                     swtemp = swmrs[i]
                     swmrs[i] = swmrs[j]
                     swmrs[j] = swtemp

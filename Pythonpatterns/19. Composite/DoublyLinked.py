@@ -22,10 +22,10 @@ class ReportButton(DButton) :
         quit = False
         mesg = ""
         while not quit:
-            mesg += (emp.getName() +"\n")
-            emp = emp.getParent()
-            quit = emp.getName() == "CEO"
-        mesg += (emp.getName() +"\n")
+            mesg += (emp.name +"\n")
+            emp = emp.parent
+            quit = emp.name == "CEO"
+        mesg += (emp.name +"\n")
         messagebox.showinfo("Report chain", mesg)
 
 #click here to compute salaries under selected employee
@@ -45,7 +45,7 @@ class SalaryButton(DButton):
 
         # put salary sum in entry field
         self.entry.delete(0, "end")
-        self.entry.insert(0, str(sum))
+        self.entry.insert(0, f'{sum:,}')
 
 # Employee is the base class
 class Employee():
@@ -55,14 +55,9 @@ class Employee():
         self.salary = salary
         self.isleaf = True
 
-    def getName(self):  return self.name
-    def getSalary(self): return self.salary
     def getSalaries(self):  return self.salary
-    def isLeaf(self): return self.isleaf
     def getSubordinates(self): return None
-    def getParent(self):return self.parent
-
-
+    
 # Boss is derived from Employee. Only Bosses can have subordinates
 class Boss(Employee):
     def __init__(self, parent, name, salary:int):
@@ -97,12 +92,12 @@ class Boss(Employee):
                for newEmp in empList:
                     newnode = Tree.tree.insert(pnode,
                             Tree.index,
-                            text = newEmp.getName())
+                            text = newEmp.name)
                     self.addNodes(newnode, newEmp)
 
     #finds child node with matching name
     def getChild(self, name:str):
-        if self.getName() == name :
+        if self.name == name :
             return self
         else:
             found = False
@@ -110,10 +105,10 @@ class Boss(Employee):
             newEmp = None
             while not found and index < len(self.subordinates) :
                 newEmp = self.subordinates[index]
-                found = newEmp.getName() == name
+                found = newEmp.name == name
 
                 if not found :
-                    if not newEmp.isLeaf():
+                    if not newEmp.isleaf:
                         newEmp = newEmp.getChild(name)
                     else:
                         newEmp = None
@@ -139,8 +134,8 @@ class Tree():
         name = dict["text"]  # get name
 
         # search for match
-        if name == boss.getName():
-            print(name, boss.getName())
+        if name == boss.name:
+            print(name, boss.name)
             newEmp = boss
         else:
             newEmp = self.boss.getChild(name)

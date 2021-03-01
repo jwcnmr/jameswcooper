@@ -19,7 +19,7 @@ class SortVisList(Listbox, VisList):
         # sort array alphabetically
         self.prods = self.sortUpwards( prodlist)
         for prod in self.prods:
-            self.insert(END, prod.getName())
+            self.insert(END, prod.name)
 
      # sort the data alphabetically
     def sortUpwards(self, prodlist):
@@ -31,7 +31,7 @@ class SortVisList(Listbox, VisList):
 
         for i in range(0, len(prods)):
             for j in range(i, len(prods)):
-                if (prods[i].getName() > prods[j].getName()):
+                if (prods[i].name > prods[j].name):
                     ptemp = prods[i]
                     prods[i] = prods[j]
                     prods[j] = ptemp
@@ -61,8 +61,8 @@ class TbVisList(Treeview, VisList)    :
 
     def addLines(self, prodlist):
         for prod in prodlist:
-            self.insert("", self.index, text=prod.getName(),
-                             values=(prod.getCount()))
+            self.insert("", self.index, text=prod.name,
+                             values=(prod.count))
             self.index += 1
 
 
@@ -85,11 +85,6 @@ class Product():
         self.name = strings[0].strip()
         self.count= strings[1].strip()
 
-    def getName(self):
-        return self.name
-
-    def getCount(self):
-        return self.count
 
 # creates an array of Product objects
 class Products():
@@ -103,7 +98,7 @@ class Products():
             self._products.append(prod)
 
     # returns the array of Products
-    def getProducts(self):
+    def getProducts(self) :
          return self._products
 
 # creates the user interface

@@ -16,7 +16,7 @@ class LbVisList(Listbox, VisList):
 
     def addLines(self, prodlist):
         for prod in prodlist:
-            self.insert(END, prod.getName())
+            self.insert(END, prod.name)
 
 # Treelist (table) visual list
 class TbVisList(Treeview, VisList)    :
@@ -33,8 +33,8 @@ class TbVisList(Treeview, VisList)    :
 
     def addLines(self, prodlist):
         for prod in prodlist:
-            self.insert("", self.index, text=prod.getName(),
-                             values=(prod.getCount()))
+            self.insert("", self.index, text=prod.name,
+                             values=(prod.count))
             self.index += 1
 
 
@@ -56,12 +56,6 @@ class Product():
         strings =nstring.split("--")    # at the dashes
         self.name = strings[0].strip()
         self.count= strings[1].strip()
-
-    def getName(self):
-        return self.name
-
-    def getCount(self):
-        return self.count
 
 # creates an array of Product objects
 class Products():

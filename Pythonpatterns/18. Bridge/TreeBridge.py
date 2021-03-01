@@ -26,9 +26,9 @@ class TbexpVisList(Treeview, VisList)    :
 
     def addLines(self, prodlist):
         for prod in prodlist:
-            fline = self.insert("", self.index, text=prod.getName())
+            fline = self.insert("", self.index, text=prod.name)
             # add count as a leaf
-            self.insert(fline, 'end', text=prod.getCount() )
+            self.insert(fline, 'end', text=prod.count )
             self.index += 1
 
 
@@ -49,8 +49,8 @@ class TbVisList(Treeview, VisList)    :
     # adds the whole list of products to the table
     def addLines(self, prodlist):
         for prod in prodlist:
-            self.insert("", self.index, text=prod.getName(),
-                             values=(prod.getCount()))
+            self.insert("", self.index, text=prod.name,
+                             values=(prod.count))
             self.index += 1
 
 
@@ -72,11 +72,6 @@ class Product():
         self.name = strings[0].strip()
         self.count= strings[1].strip()
 
-    def getName(self):
-        return self.name
-
-    def getCount(self):
-        return self.count
 
 # creates an array of Product objects
 class Products():

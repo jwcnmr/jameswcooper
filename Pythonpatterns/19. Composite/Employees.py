@@ -1,7 +1,7 @@
 """ Program to create an Boss -- Employee tree fpr a small company
 And display it in a Treeview"""
 
-from tkinter import ttk
+
 import tkinter as tk
 from tkinter import *
 from tkinter.ttk import *
@@ -26,8 +26,8 @@ class SalaryButton(DButton):
         name= dict["text"]          #get name
 
         #search for match
-        if name == self.boss.getName():
-            print(name, self.boss.getName())
+        if name == self.boss.name:
+            print(name, self.boss.name)
             newEmp = self.boss
         else:
             newEmp = self.boss.getChild(name)
@@ -44,10 +44,7 @@ class Employee():
         self.salary = salary
         self.isleaf = True
 
-    def getName(self):  return self.name
-    def getSalary(self): return self.salary
     def getSalaries(self):  return self.salary
-    def isLeaf(self): return self.isleaf
     def getSubordinates(self): return None
 
 
@@ -85,12 +82,12 @@ class Boss(Employee):
                for newEmp in empList:
                     newnode = Tree.tree.insert(pnode,
                             Tree.index,
-                            text = newEmp.getName())
+                            text = newEmp.name)
                     self.addNodes(newnode, newEmp)
 
     #finds child node with matching name
     def getChild(self, name:str):
-        if self.getName() == name :
+        if self.name == name :
             return self
         else:
             found = False
@@ -98,10 +95,10 @@ class Boss(Employee):
             newEmp = None
             while not found and index < len(self.subordinates) :
                 newEmp = self.subordinates[index]
-                found = newEmp.getName() == name
+                found = newEmp.name == name
 
                 if not found :
-                    if not newEmp.isLeaf():
+                    if not newEmp.isleaf:
                         newEmp = newEmp.getChild(name)
                     else:
                         newEmp = None
