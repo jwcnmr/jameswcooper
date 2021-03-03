@@ -18,14 +18,11 @@ class DButton(Button):
 # Chain base class
 class Chain():
     def addChain(self, chain):
-        self._nextChain = chain
+        self.nextChain = chain
 
     def sendToChain(self, evt):pass
 
-    @property
-    def nextChain(self):
-        return self._nextChain
-
+    
 # the File button and help message
 class FileButton(DButton, Chain):
     def __init__(self, root, **kwargs):

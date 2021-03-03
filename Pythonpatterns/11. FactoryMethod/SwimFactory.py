@@ -4,8 +4,7 @@ from tkinter import ttk
 
 class Seeding:
     def getSwimmers(self): pass
-    def getCount(self): pass
-    def getHeats(self): pass
+
 
 class Event():
     def __init__(self, filename, lanes):
@@ -42,7 +41,7 @@ class TimedFinalEvent (Event):
 
 """Straight seeding puts the top swimmers in the last heat
 and the next fastest ones in the second heat and so forth"""
-class StraightSeeding():
+class StraightSeeding(Seeding):
     def __init__(self, sw, nlanes):
         self.swimmers = sw
         self.numLanes = nlanes

@@ -28,18 +28,18 @@ class EntryButton(DButton):
 # Chain base class
 class Chain():
     def addChain(self, chain):
-        self._nextChain = chain
+        self.nextChain = chain
     def sendToChain(self, mesg:str): pass
-    @property
-    def nextChain(self):
-        return self._nextChain
+    #@property
+    #def nextChain(self):
+    #    return self._nextChain
 
 # looks fod jpg file to display
 class ImageChain(Canvas, Chain):
     def __init__(self, root, **kwargs):
         super().__init__(root, **kwargs)
         self.root = root
-        self._nextchain=None
+        self.nextchain=None
 
     def sendToChain(self, mesg:str):
         try:
@@ -63,7 +63,7 @@ class ColorFrame(Frame, Chain):
     def __init__(self, root,**kwargs):
         super().__init__(root, **kwargs)
         self.root = root
-        self._nextChain = None
+        self.nextChain = None
         # set of known tkinter colors
         self.colorSet = { "white", "black", "red", "green",
                           "blue", "cyan", "yellow","magenta"}
@@ -101,7 +101,7 @@ class EntryChain(LabelFrame, Chain):
         def __init__(self, root):
             super().__init__(text="Enter command",
                              borderwidth=3, relief=RAISED)
-            self._nextChain = None
+            self.nextChain = None
             self.root = root
             self.entry = Entry(self)
             self.entry.pack(pady=10, padx=10)

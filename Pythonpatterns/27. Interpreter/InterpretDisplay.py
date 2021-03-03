@@ -91,20 +91,18 @@ class Sorter():
 # Variable is any token that is not a verb
 class Variable():
     def __init__(self,varname):
-        self._varType = "variable"
-        self._varname = varname
+        self.varType = "variable"
+        self.varname = varname
         self.varlist = []
         self.varlist.append(varname)
-    @property
-    def varType(self):
-        return self._varType
+
     def append(self,var:Variable):
         # appends all the variables from previous token
         vlist = var.getList()
         for v in vlist:
             self.varlist.append(v)
-    def getName(self):
-        return self.varlist[0]
+    #def getName(self):
+    #    return self.varlist[0]
     def getList(self):
         return self.varlist
 
@@ -112,24 +110,23 @@ class Variable():
 class Verb(Variable, Command):
     def __init__(self, varname, swmrs, bldr):
         super().__init__(varname)
-        self._varType = "verb"
-        self._varname = varname
+        self.varType = "verb"
+        self.varname = varname
         self.swmrs = swmrs
         self.bldr = bldr
 
-    def getName(self):
-        return self._varname
+
 # here the Verb ix executed
     def comd(self):
         # Sort by one field
-        if self.getName().lower() == "sortby":
+        if self.varname.lower() == "sortby":
             sorter = Sorter(self.swmrs)
             self.varlist.pop(0)   #remove "sortby"
             for v in self.varlist: # multiple sorts here
                 sorter.sortby(v)
 
         # generate a List of lines to disolay
-        if self.getName().lower() == "print":
+        if self.varname.lower() == "print":
             self.varlist.pop(0)  # remove "print"
             pres = Printres( self.varlist, self.bldr)
             plist = pres.create(self.swmrs)
