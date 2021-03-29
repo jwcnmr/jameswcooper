@@ -273,6 +273,7 @@ class SqltDatabase(Database):
                         "select name from sqlite_master where type='table'")
 
         # create array of table objects
+        self.tables=[]
         rows = tbQuery.execute().getRows()
         for r in rows:
             self.tables.append(SqltTable(self._db, r))
