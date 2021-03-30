@@ -3,10 +3,11 @@ import MySQLdb
 to create the groceries database described in the Facade chapter."""
 class Database():
     def __init__(self, *args):
-        self._db = MySQLdb.connect(args[0], args[1], args[2])
+        self._db = MySQLdb.connect(args[0], args[1], args[2], args[3])
         self.host=args[0]
         self.userid=args[1]
         self.pwd = args[2]
+        self.dbname = args[3]
         self._cursor = self._db.cursor()
 
     def commit(self):
@@ -61,15 +62,6 @@ class Query():
         print (self.qstring, vals)
         self.cursor.executemany(self.qstring, vals)
 
-#  Mediator used by columns ad Table class to keep
-# the primary key string used in creating the SQL
-class Mediator() :
-    def __init__(self, db):
-        self.db = db
-    def setPrimaryString(self, prims):
-        self.pstring = prims
-    def getPrimaryString(self):
-        return self.pstring
 
 # base class Column
 class Column():
@@ -84,17 +76,21 @@ class Column():
     def name(self):
         return self._name
 
+# holds primary key string as table is created
+class Primary() :
+    primaryString = ""
+
+
 # Integer column- may be a primary key
 class Intcol(Column)  :
-    def __init__(self, name, primary,med:Mediator):
+    def __init__(self, name, primary):
         super().__init__(name)
         self._primary = primary
-        self.med = med
 
     def getName(self):
         idname = self.name+" INT NOT NULL "
         if self._primary:
-            self.med.setPrimaryString( "PRIMARY KEY ("+self.name+")")
+            Primary.primaryString = ("PRIMARY KEY (" + self.name + ")")
         return idname
 # Float col
 class Floatcol(Column):
@@ -112,15 +108,15 @@ class Charcol(Column):
     def getName(self):
         idname =  self.name + " VARCHAR("+str(self.width)+") NULL "
         return idname
-# Table class used to create all the table
+
 class Table():
-    def __init__(self, db, name, med:Mediator):
+    def __init__(self, db, name):
         self.cursor = db.cursor
         self.db = db
         self.tname = name   # first of tuple
         self.colList=[]     # list of column names generated
         self._primarystring = ""
-        self.med = med
+
 
     @property
     def name(self):     # gets table name
@@ -145,22 +141,6 @@ class Table():
         query.execute()
         self.db.commit()
 
-    # creates the table and columns
-    def create(self):
-        sql = "create table "+self.db.getName()+"."+ self.name+" ("
-        for col in self.colList:
-            sql += col.getName()+","
-
-        sql += self.med.getPrimaryString()
-        sql +=")"
-        print (sql)
-        self.cursor.execute(sql)
-
-    # returns a list of columns
-    def getColumns(self):
-        self.cursor.execute("show columns from " + self.tname)
-        self.columns = self.cursor.fetchall()
-        return self.columns
 
 # contains the result of a query
 class Results():
@@ -174,12 +154,12 @@ class Results():
 class Builder():
     def build(self):
         db = Database("localhost", "newuser", "new_user")
-        db.create("groceries")
-        med = Mediator(db)  #keeps the primary key string
+        db.create("groceries2")
+       # med = Mediator(db)  #keeps the primary key string
 
         # Create food table
-        foodtable = Table(db, "foods", med)
-        foodtable.addColumn(Intcol("foodkey", True, med))  # primary key
+        foodtable = Table(db, "foods")
+        foodtable.addColumn(Intcol("foodkey", True))  # primary key
         foodtable.addColumn (Charcol("foodname", 45))
         foodtable.create()
 
@@ -191,8 +171,8 @@ class Builder():
         foodtable.addRows(vals)
 
         # create store table
-        storetable  = Table(db, "stores", med)
-        storetable.addColumn( Intcol("storekey", True, med))  # primary key
+        storetable  = Table(db, "stores")
+        storetable.addColumn( Intcol("storekey", True))  # primary key
         storetable.addColumn(Charcol("storename", 45))
         storetable.create()
 
@@ -202,10 +182,10 @@ class Builder():
         storetable.addRows(vals)
 
         # create price table
-        pricetable = Table(db, "prices", med)
-        pricetable.addColumn(Intcol("pricekey", True, med))  # primary key
-        pricetable.addColumn(Intcol("foodkey", False, med))
-        pricetable.addColumn(Intcol("storekey", False, med))
+        pricetable = Table(db, "prices")
+        pricetable.addColumn(Intcol("pricekey", True))  # primary key
+        pricetable.addColumn(Intcol("foodkey", False))
+        pricetable.addColumn(Intcol("storekey", False))
         pricetable.addColumn(Floatcol("price"))
         pricetable.create()
 

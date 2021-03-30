@@ -64,10 +64,11 @@ def main():
     for t in tables:
         print (t.name)
 
-    qstring = ("select foods.foodname, stores.storename, prices.price from foods,"
-               + "stores, prices where foods.foodkey=prices.foodkey and "
-               + "stores.storekey = prices.storekey and foods.foodname='apples' "
-               + " order by price")
+    qstring = ("""select foods.foodname, stores.storename, 
+prices.price from  prices 
+join foods on (foods.foodkey=prices.foodkey) 
+join stores on  (stores.storekey = prices.storekey )
+where foods.foodname='apples'  order by price""")
 
     # create and execute the query
     foodQuery = Query(db.cursor, qstring)
