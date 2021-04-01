@@ -85,7 +85,7 @@ class Query():
 
 
 # Query object makes queries and returns Results
-class Query1():
+class VariableQuery():
     def __init__(self, cursor, qstring):
         self.qstringMaster = qstring  #master copy
         self.qstring = self.qstringMaster

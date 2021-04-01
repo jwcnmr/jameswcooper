@@ -56,7 +56,7 @@ class Builder():
                    "join stores on  (stores.storekey = prices.storekey ) " +
                    "where foods.foodname=?0 order by price")
         # create the query with replaceable argument
-        self.foodQuery = Query1 (self.cursor, qstring)
+        self.foodQuery = VariableQuery (self.cursor, qstring)
 
         self.root.geometry ("400x300")
         self.root.title("Grocery queries")
