@@ -1,0 +1,109 @@
+BoxLayout:
+    spacing: 1
+    orientation:'vertical'
+    pos_hint: {'x': 0, 'y': 0}
+    background_color: .5,.5,.5,1
+    canvas.before:
+        Color:
+            rgba: .5, .5, .5, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    # this is where the calculation is shown
+    TextInput:
+		id: calctext
+		size_hint: (.8, .1)
+
+    # The grid contains all the buttons
+	GridLayout:
+	    cols: 4
+	    spacing: [2,2]
+
+	 # top row
+	    RedButton:
+	        text:'CE'
+	        on_press:
+	            app.clearEntry()
+
+	    DarkGrayButton:
+	        text: ''
+
+	    OrangeButton:
+	        text: '+/-'
+	        on_press:
+	            app.chgSign() #changes the sign
+	    BrownButton:
+	        text:' / '
+    # second row
+	    GrayButton:
+	        text: '7'
+	    GrayButton:
+	        text: '8'
+	    GrayButton:
+	        text: '9'
+	    BrownButton:
+	        text: ' * '
+    # Third row
+        GrayButton:
+	        text: '4'
+	    GrayButton:
+	        text: '5'
+	    GrayButton:
+	        text: '6'
+	    BrownButton:
+	        text: ' - '
+    # fourth row
+	    GrayButton:
+	        text: '1'
+	    GrayButton:
+	        text: '2'
+	    GrayButton:
+	        text: '3'
+	    BrownButton:
+	        text: ' + '
+    # fifth row
+	    DarkGrayButton:
+	        text: ' '
+	    GrayButton:
+	        text: '0'
+	    GrayButton:
+	        text: '.'
+	    GreenButton:
+	        text: '='
+
+# basic button class
+<BaseButton@Button>
+    color: 0,0,0,1
+    font_size: 24
+    background_normal: ''
+    padding_horizontal: 20
+    size_hint: (0.1,0.05)
+
+# Gray button class calls numClick
+<GrayButton@BaseButton>:
+    background_color: .8,.8,.8,1
+    on_press:
+        app.numClick(self.text)
+
+# Dummy button
+<DarkGrayButton@GrayButton>
+    background_color:.5,.5,.5,1
+
+<RedButton@BaseButton>
+    background_color:1,0,0,1
+
+<OrangeButton@BaseButton>
+    background_color: 1, 0.5,0,1
+
+# Brown button also calls the numClick
+# since it is derived from GrayButton
+<BrownButton@GrayButton>
+    background_color: .7, 0.3,0.2
+
+# The green button is for the Equals sign
+# and calls the calcClick method
+<GreenButton@BaseButton>
+    background_color: 0,1,0,1
+    on_press:
+        app.calcClick()
