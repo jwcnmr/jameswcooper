@@ -36,6 +36,13 @@ class Mediator():
                  "/": self.divfun}
         sym = Numentry(self.getLabelText(), "+")
         self.array.append(sym)
+        evstring = ""
+        for val in self.array:
+            evstring += str(val.numval)
+            evstring += val.sign
+        evstring = evstring[0:len(evstring)-1]
+        print(evstring)
+        """
         self.stack=[]
         while len(self.array) >0:
             self.stack.append(self.array.pop())
@@ -52,7 +59,8 @@ class Mediator():
 
         sym = self.stack[-1]
         self.setlabelText(str(sym.numval))
-        self.array.append(sym)
+        self.array.append(sym)"""
+        self.setlabelText(eval(evstring))
 
 
     # Any number is clicked
