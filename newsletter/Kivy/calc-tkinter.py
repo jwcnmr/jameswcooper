@@ -60,7 +60,9 @@ class Mediator():
         sym = self.stack[-1]
         self.setlabelText(str(sym.numval))
         self.array.append(sym)"""
-        self.setlabelText(eval(evstring))
+        sum = eval(evstring)
+        self.setlabelText(sum)
+        self.array = []
 
 
     # Any number is clicked
