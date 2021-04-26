@@ -1,0 +1,22 @@
+# class and layout for one button display (with label)
+<OneBut>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .8, .8, .8, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Label
+            id: toplabel
+            color: 0,0,1,1
+            text: 'Hi there'
+        Button:
+            text: 'Hello'
+            color: 0,0,0,1
+            background_normal: ''
+            size_hint: (0.7,0.2)
+            background_color: .9,.9,.9,
+            on_press:
+                root.butclick()

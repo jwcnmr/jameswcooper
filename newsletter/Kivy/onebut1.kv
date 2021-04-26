@@ -1,0 +1,15 @@
+# class and layout for one button display (with label)
+<OneBut>:
+    FloatLayout:
+        Label
+            id: toplabel
+            color: 0,0,1,1 #blue text
+            text: 'Hi there'
+        Button:
+            text: 'Hello'
+            color: 0,0,0,1  #black text
+            size_hint: (0.7,0.2)
+            #background_normal: ''
+            background_color: .9,.9,.9, # gray background
+            on_press:
+                root.butclick()

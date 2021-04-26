@@ -1,0 +1,83 @@
+<AddNums>:
+    BoxLayout:
+        spacing: 1
+        orientation:'vertical'
+        canvas.before:
+            Color:
+                rgba: .7, .7, .7, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        ColorLabel:
+            text: "Enter two numbers to add"
+
+        # Line 2 Horizontal box contains a label and a TextInput field
+        BoxLayout:
+            spacing: 1
+            orientation:'horizontal'
+
+            ColorLabel:
+                text: 'Num1:'
+                size_hint: (None,0.8)
+
+            TextInput:
+                id: frnum
+                size_hint: (None, .8)
+                width: 150
+                write_tab: False
+    # Line 3
+        BoxLayout:
+            spacing: 1
+            orientation:'horizontal'
+
+            ColorLabel:
+                text: 'Num2:'
+                size_hint: (None, .8)
+
+            TextInput:
+                id: secnum
+                size_hint: (None, .8)
+                width: 150
+                write_tab:False
+
+        # Line 4 horizontal box contains two buttons
+        BoxLayout:
+            spacing: 10
+            orientation:'horizontal'
+
+            GrayButton:
+                text: 'Add'
+                color: 0,0,0,1
+                on_press:
+                    root.bclick()
+
+            GrayButton:
+                text: 'Clear'
+                on_press:
+                    root.cclick()
+        #Line 5
+        ColorLabel:
+            text: "Sum appears here"
+            id: sumlabel
+
+<ColorLabel@Label>:
+    color: 0,0,1,1
+    size: self.texture_size
+    canvas.before:
+        Color:
+            rgba: .9, .9, .9, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    padding_x: 20
+
+<GrayButton@Button>:
+    color: 0,0,0,1
+    background_normal: ''
+    background_color: .8,.8,.8,1
+    padding_horizontal: 20
+    size_hint: (0.5,0.7)
+
+
+
