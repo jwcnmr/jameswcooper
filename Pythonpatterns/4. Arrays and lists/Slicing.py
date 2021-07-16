@@ -14,3 +14,8 @@ print(text[ln-6:ln+1]) #Python
 #using stride
 print(text[0:6:1])  #Learn
 print(text[0:6:2])  #Lan
+
+# reverse a string
+name = "I love Python"
+newname = name[-1::-1]  # nohtyP evol I
+

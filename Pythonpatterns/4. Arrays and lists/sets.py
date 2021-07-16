@@ -5,7 +5,7 @@ fruit = {'apples', 'pears', 'lemons'}
 fruitPie = {'apples', 'pears'}
 
 # both are true if fruitPie
-# is a member of bruit
+# is a member of fruit
 print (fruitPie.issubset(fruit))
 print (fruitPie < fruit)
 

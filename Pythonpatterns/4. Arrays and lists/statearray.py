@@ -1,5 +1,5 @@
 """Read file into array"""
-DATAFILE="statenames.txt"
+DATAFILE="stateNames.txt"
 
 with open(DATAFILE, "r") as f:
     statenames=[]

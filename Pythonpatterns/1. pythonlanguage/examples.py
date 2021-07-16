@@ -1,4 +1,18 @@
 
+PI = 3.14159  #float
+PI = "cherry" #string 
+
+
+# strings can be enclosed in single
+# or double or triple quotes
+fstring = "fred"
+astring = 'sam'
+
+longstring = """this can even go on for
+            several lines"""
+print(fstring, astring, longstring)
+
+
 j = 5                       #an integer
 xyz = 273.16                #float type (always double)
 TempName = "Celsius"        #a string
@@ -8,10 +22,15 @@ hot = temperature > 80      #boolean
 hot = "really hot"
 gtnum = "lesser"            #now is a string
 
-Π = 3.14159
+# Complex numbers
+cmplx = complex(5.43, 2.22)
+cmplx2 = 5.5 + 2.2j
+print(cmplx, cmplx2)
 
-PI = 3.14159  #float
-PI = "cherry" #string 
+r = cmplx.real
+ipart = cmplx.imag
+print(r, ipart)
+
 
 x = 2
 temp = 32.0
@@ -48,11 +67,11 @@ print (x)
 
 
 x = 12
-if 0 < x and x <= 24:
+if (0 < x) and ( x <= 24):
      print ("Time is up")
  
 y = 1
-if  y > 0 :
+if ( y > 0 ):
     z = x / y
     print("z = ", z)
     
@@ -66,60 +85,3 @@ if  y > 0 :
 for any number of lines"""
     
     
-age = 25
-hasStudentId = False
-"""Demonstration of elif"""
-if age < 6:
-    price = 0    #child is free
-elif age>=6 and age < 60:
-    price = 35   #adult price
-elif age >= 60 and age < 80:
-    price = 30   #senior
-elif hasStudentId:
-    price = 15   #student
-else:
-    price = 20   #super Senior 80 or higher
-print("price = ", price)
- 
-"""while loop example"""
-i = 0
-while i < 100:
-    x = x + i
-    i += 1
-print ("x=", x)
-
-"""for loop examples"""
-array = [5,12,34,57,22,6]
-for x in array:
-    print (x)
-    
-for i in range(0,5):
-    print (i, array[i])
-    
-town = "Fairfield"
-newtown = town.removesuffix("field")
-print(newtown)   #Fair
-farm = town.removeprefix("Fair")
-print(farm)   #field
-
-# complex numbers
-cmplx = complex(5.43, 2.22)
-cmplx2 = 5.5 +2.2j
-r = cmplx.real
-ipart = cmplx.imag
-
-print (cmplx, cmplx2)
-print(r, ipart)
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
