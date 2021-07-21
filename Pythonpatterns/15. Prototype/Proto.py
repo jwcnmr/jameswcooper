@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 from Lib import copy
+import os, sys
 
 # derived class from Button that contains empty comd function
 class DButton(Button):
@@ -100,7 +101,8 @@ class BuildUI():
     def readFile(self):
         self.swimmers = []  # array of swimmers
         # read in the data file for this event
-        f = open("swimmers.txt", "r")
+        datafile = (os.path.join(sys.path[0], 'Swimmers.txt'))
+        f = open(datafile, "r")
         # the Swimmer class parses each line of the data file
         for swstring in f:
             sw = Swimmer(swstring)

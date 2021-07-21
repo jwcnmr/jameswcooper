@@ -48,4 +48,3 @@ Washington, WA, 1889, Olympia
 West Virginia, WV, 1863, Charleston
 Wisconsin, WI, 1848, Madison
 Wyoming, WY, 1890, Cheyenne
-

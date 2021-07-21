@@ -30,7 +30,7 @@ class BuildUI():
 
     #creates the two listbox user interface
     def build(self):
-        self.root.geometry("300x200")
+        self.root.geometry("325x200")
         self.evlist = Listbox(self.root)
         self.evlist.insert(END,"500 Free")
         self.evlist.insert(END, "100 Free")

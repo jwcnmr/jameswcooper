@@ -18,13 +18,13 @@ class OKButton(Button):
 includes get methods to get the name var state"""
 class Checkbox(Checkbutton):
     def __init__(self, root, btext, gvar):
-        super().__init__(master=None, text=btext, variable=gvar)
+        super().__init__(root, text=btext, variable=gvar)
         self.text=btext
         self.var = gvar
 
         #Internet joke about Pineapple on pizza
-        #if self.text == "Pineapple":        #prevent Pineapple on pizza
-        #    self.configure(state=DISABLED)
+        if self.text == "Pineapple":        #prevent Pineapple on pizza
+            self.configure(state=DISABLED)
 
     def getText(self):
         return self.text
@@ -47,14 +47,14 @@ class InitUI():
         root.title("Pizza")
         root.geometry("200x175")
 
-        boxes=[]            #list of check boxes stored here
+        boxes=[]            # list of check boxes stored here
         r = 0
         for name in self.names:
-            var=IntVar()                    #create an IntVar for each one
-            cb = Checkbox(root, name, var)  #create each checkbox
-            boxes.append(cb)                #and add it to the list
-            cb.grid(column=0, row=r, sticky=W) #format in grid layout
-            r += 1                            #row counter
+            var=IntVar()                    # create an IntVar for each one
+            cb = Checkbox(root, name, var)  # create each checkbox
+            boxes.append(cb)                # and add it to the list
+            cb.grid(column=0, row=r, sticky=W) # format in grid layout
+            r += 1                            # row counter
 
         #Create the Order button and give it the list of boxes
         OKButton(root, boxes).grid(column=1, row=3, padx=20)

@@ -24,9 +24,12 @@ class ReportButton(DButton) :
         while not quit:
             mesg += (emp.name +"\n")
             emp = emp.parent
-            quit = emp.name == "CEO"
-        mesg += (emp.name +"\n")
-        messagebox.showinfo("Report chain", mesg)
+            quit = emp==None or emp.name == "CEO"
+        if emp != None:
+            mesg += (emp.name +"\n")
+            messagebox.showinfo("Report chain", mesg)
+        else:
+            messagebox.showinfo("no boss", 'CEO has no boss')
 
 #click here to compute salaries under selected employee
 class SalaryButton(DButton):
@@ -57,7 +60,7 @@ class Employee():
 
     def getSalaries(self):  return self.salary
     def getSubordinates(self): return None
-    
+
 # Boss is derived from Employee. Only Bosses can have subordinates
 class Boss(Employee):
     def __init__(self, parent, name, salary:int):
@@ -65,7 +68,6 @@ class Boss(Employee):
         self.subordinates = []
         self.isleaf = False
 
-    def getSubordinates(self):  return self.subordinates
     def add(self, e:Employee): self.subordinates.append(e)
 
     # called recursively as it walks down the tree

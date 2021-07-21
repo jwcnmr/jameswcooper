@@ -7,6 +7,7 @@ from tkinter import *
 import tkinter.ttk
 from tkinter.ttk import *
 from tkinter import messagebox
+import sys
 
 # Derived button class with an abstract comd method
 class DButton(Button):

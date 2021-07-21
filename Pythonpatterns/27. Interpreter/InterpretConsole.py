@@ -3,31 +3,27 @@ parses a simple grammar and sorts the results accordingly.
 The parser uses stack reduction to reduce the tokens
 to verbs and variables"""
 
-import tkinter as tk
+
 from operator import attrgetter
-from tkinter import *
 import os
 import sys
+
 
 # Command interface
 class Command():
     def comd(self):pass
 
-#derived button class with an abstract comd method
-class DButton(Button, Command):
-    def __init__(self, master,  **kwargs):
-        super().__init__(master, command=self.comd, **kwargs)
+
 
 # Interpreter button runs the parser
 # and loads te list box
-class Interp(DButton):
-    def __init__(self, root, bldr):
-        super().__init__(root, text="Interp")
-        self.bldr=bldr
-    def comd(self):
-        print (sys.path[0])
-        self.swmrs = Swimmers(os.path.join(sys.path[0],"100free.txt"))
-        commands = self.bldr.getEntry().get()
+class Interp():
+    def __init__(self, bldr):
+        self.bldr = bldr
+
+    def comd(self, commds):
+        self.swmrs = Swimmers(os.path.join(sys.path[0], "100free.txt"))
+        commands = commds
         p = Parser(commands, self.swmrs.getSwimmers(), self.bldr)
 
         #stack reduction takes place here
@@ -35,11 +31,10 @@ class Interp(DButton):
             p.reduceStack()
         # get the sorted list of swimmers
         # and load it into the listbox
-        plist = self.bldr.getPlist()
-        lb = self.bldr.getListbox() #get the listbox
-        lb.delete(0, END)
-        for pl in plist:
-            lb.insert(END, pl)
+        plist = p
+        return plist
+        #for pl in plist:
+        #    lb.insert(END, pl)
 
 # One swimmer consists of name, club and time
 class Swimmer():
@@ -99,7 +94,7 @@ class Variable():
         self.varlist = []
         self.varlist.append(varname)
 
-    def append(self,var:Variable):
+    def append(self,var):
         # appends all the variables from previous token
         vlist = var.getList()
         for v in vlist:
@@ -119,7 +114,7 @@ class Verb(Variable, Command):
         self.bldr = bldr
 
 
-# here the Verb is executed
+# here the Verb ix executed
     def comd(self):
         # Sort by one field
         if self.varname.lower() == "sortby":
@@ -133,6 +128,7 @@ class Verb(Variable, Command):
             self.varlist.pop(0)  # remove "print"
             pres = Printres( self.varlist, self.bldr)
             plist = pres.create(self.swmrs)
+            #print('completed')
 
 # creates the results strings to be loaded into the list box
 class Printres:
@@ -140,6 +136,7 @@ class Printres:
         self.printList = []
         self.functions = []
         self.bldr = bldr
+
         #create list of functions to fetch from Swimmer
         for v in varlist:
             self.functions.append(attrgetter(v))
@@ -150,6 +147,7 @@ class Printres:
                  sline += str(f(sw)) +"   " # and swimmers
              self.printList.append(sline)   # save in List
          self.bldr.setPlist(self.printList)
+
 
 # Parser takes tokens and assigns them
 # to Variable and Verb objects
@@ -166,7 +164,7 @@ class Parser():
         # variables or verbs
         for tok in tokens:
             if tok.lower() in Parser.verbs:     # it's a Verb
-                self.stack.append(Verb(tok, self.swmrs, bldr))
+                self.stack.append(Verb(tok, self.swmrs, self.bldr))
             if tok.lower() in Parser.variables: #or a Variable
                 self.stack.append(Variable(tok))
 
@@ -186,7 +184,7 @@ class Parser():
     def getStack(self):
          return self.stack
 
-# builds the UI and gives access to Entry and Listbox
+# creates the needed classes and reads in the file
 class Builder():
     def __init__(self):
         self.plist = []
@@ -195,28 +193,16 @@ class Builder():
     def getPlist(self):
         return self.plist
     def build(self):
-        commands = "Print lname frname club time Sortby time Thenby club"
-        root = tk.Tk()
-        root.geometry("300x250")
-        root.title("Interpreter")
+        #commands = "Print lname frname club time Sortby time Thenby club"
+        commands = ""
+        while commands != 'q':
+            commands = input('Enter command: \n')
+            interp = Interp(self)
+            interp.comd(commands)
+            # result is returned in self.plist
+            for p in self.plist:
+                print(p)
 
-        self.entry =Entry(width=250)
-        self.entry.pack()
-        self.entry.insert(END, commands)
-
-        self.results = Listbox(width=100)
-        self.results.pack(padx=40)
-
-        self.interp = Interp(root, self)
-        self.interp.pack(pady=10)
-
-        mainloop()
-    #returns access to the Results list box
-    def getListbox(self):
-        return self.results
-    #returns access to the entry field
-    def getEntry(self):
-        return self.entry
 
 #----------------------------
 def main():

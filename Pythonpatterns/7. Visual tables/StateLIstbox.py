@@ -1,12 +1,9 @@
 from tkinter import ttk
-#import tkinter as tk
-#import tkinter.ttk as ttk
-
 from tkinter import *
 from tkinter.ttk import *
+import os, sys
 
 
-DATA_FILE="c:/users/James/Onedrive/documents/python/states.txt"
 DATA_FILE="states.txt"
 """Object representing one state
  Contains the name, abbreviation, capital and founding date"""
@@ -120,9 +117,9 @@ class BuildUI():
 
 #----------------------------------
 def main():
-    sl = StateList(DATA_FILE)
+    sl = StateList(os.path.join(sys.path[0], DATA_FILE))
     root = Tk()
-    root.geometry("300x400")  # this one is pretty confusing
+    root.geometry("300x200")  # this one is pretty confusing
     bdui = BuildUI(root, sl.getStateList())
 
     root.title("State List")  # title only shows if window is wide enough

@@ -118,7 +118,7 @@ class Builder():
     def build(self):
         root = tk.Tk()
 
-        root.geometry("400x350")
+        root.geometry("425x350")
         root.title("Chain of resp demo")
         style = Style()
         style.theme_use('alt')

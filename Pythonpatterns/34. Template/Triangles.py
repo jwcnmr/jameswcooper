@@ -95,7 +95,7 @@ class IsoscelesTriangle(Triangle):
 class Builder():
     def build(self):
         root = tk.Tk()
-        root.title("Strategy plot")
+        root.title("Template plot")
         canvas = Canvas(root, width=300, height=300)
         canvas.pack()
     # coordinates of standard triangle

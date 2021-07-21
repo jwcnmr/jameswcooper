@@ -7,6 +7,7 @@ from operator import attrgetter
 from tkinter import *
 import tkinter.ttk
 from tkinter.ttk import *
+import os, sys
 
 
 # One swimmer consists of name, club and time
@@ -97,7 +98,7 @@ class SwmrIter():
 # builds the UI, reads in the swimmer data
 class Builder():
     def build(self):
-        self.swmrs = Swimmers("100free.txt")
+        self.swmrs = Swimmers(os.path.join(sys.path[0], "100free.txt"))
         root = tk.Tk()
         root.geometry("350x250")
         root.title("Filtered")
