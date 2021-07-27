@@ -1,10 +1,11 @@
 #from GroceryDisplay import Database
+import DBObjects
 from DBObjects import Database, Query, VariableQuery, Table, Primary
-import sqlite3
+import pymysql
 
-class SqltDatabase(Database):
-    def __init__(self, dbname):
-        self._db = sqlite3.connect(dbname)
+class MysqlDatabase(Database):
+    def __init__(self, host, username, password,dbname):
+        self._db = pymysql.connect(host=host, user=username, password=password, database=dbname)
         self._dbname = dbname
         self._cursor = self._db.cursor()
 
@@ -13,22 +14,21 @@ class SqltDatabase(Database):
 
     def create(self, dbname):
         pass
+
     def getTables(self):
-        tbQuery = Query(self.cursor,
-                        "select name from sqlite_master where type='table'")
+        self._cursor.execute("show tables")
 
         # create array of table objects
-        self.tables=[]
-        rows = tbQuery.execute().getRows()
+        self.tables = []
+        rows = self._cursor.fetchall()
         for r in rows:
-            self.tables.append(SqltTable(self._db, r))
+            self.tables.append(Table(self._cursor, r))
         return self.tables
-
 # Table class used to create all the table
-class SqltTable(Table):
-    def __init__(self, db, name):
-        self.cursor = db.cursor()
-        self.db = db
+class Table(DBObjects.Table):
+    def __init__(self, cursor, name):
+        self.cursor = cursor
+        #self.db = db
         self.tname = name   # first of tuple
         self.colList=[]     # list of column names generated
         self._primarystring = ""
@@ -64,10 +64,8 @@ class SqltTable(Table):
         self.cursor.execute(sql)
 
     def getColumns(self):
-        tn = self.tname[0]
         print(self.tname)
-        sql="select name from pragma_table_info('"+tn+"')"
-        print(sql)
-        self.cursor.execute(sql)
-        self.columns = self.cursor.fetchall()
+        sql = "show columns from " + "".join(self.tname)
+        tquery = Query(self.cursor, sql)
+        self.columns = tquery.execute().getRows()
         return self.columns
