@@ -1,13 +1,18 @@
-import MySQLdb
+import pymysql
 """This program uses the Table and Query classes to generate the SQL
 to create the groceries database described in the Facade chapter."""
 class Database():
     def __init__(self, *args):
-        self._db = MySQLdb.connect(args[0], args[1], args[2], args[3])
-        self.host=args[0]
-        self.userid=args[1]
-        self.pwd = args[2]
-        self.dbname = args[3]
+        aiter = iter(args)
+        self.host = next(aiter)
+        self.userid = next(aiter)
+        self.pwd = next(aiter)
+        self._db = pymysql.connect(host=self.host, user=self.userid,password=self.pwd)
+
+        #self.host=args[0]
+        #self.userid=args[1]
+        #self.pwd = args[2]
+        #self.dbname = args[3]
         self._cursor = self._db.cursor()
 
     def commit(self):
@@ -17,7 +22,7 @@ class Database():
         self.cursor.execute("drop database if exists "+dbname)
         self._cursor.execute("Create database "+ dbname)
         self._dbname = dbname
-        self._db=MySQLdb.connect(self.host, self.userid, self.pwd, dbname)
+        self._db=pymysql.connect(host=self.host, user=self.userid, password=self.pwd, database=dbname)
         self.cursor.execute("use "+dbname)
         self._cursor= self._db.cursor()
 
@@ -140,7 +145,16 @@ class Table():
         query = Query(self.cursor, qry, varnames)
         query.execute()
         self.db.commit()
+# creates the table and columns
+    def create(self):
+        sql = "create table " +  self.name + " ("
+        for col in self.colList:
+            sql += col.getName()+","
 
+        sql += Primary.primaryString
+        sql +=");"
+        print (sql)
+        self.cursor.execute(sql)
 
 # contains the result of a query
 class Results():

@@ -4,12 +4,15 @@ DBObjects contains only 4 objects: Database, Query, Table and Results
 The Query class supports replacement of arguments if the string ?0, ?1
 and so forth are in the query. So replaces Apple with Oranges is very simple"""
 
-import MySQLdb
+import pymysql
 from tkinter import ttk, messagebox
 from DBObjects import *
 import tkinter as tk
 from tkinter import *
 from tkinter.ttk import *
+
+from MysqlDatabase import MysqlDatabase
+
 
 class DButton(Button):
     def __init__(self, foodquery, builder, master=None, **kwargs):
@@ -39,7 +42,7 @@ class Builder():
         self.root = root
 
     def build(self):
-        db = Database("localhost", "newuser", "new_user","groceries")
+        db = MysqlDatabase('localhost', 'newuser', 'new_user','groceries2')
         self.cursor = db.cursor
         print(self.cursor)
         self.cursor.execute("show tables")
@@ -96,7 +99,7 @@ class Builder():
         # load table names into left listbox
         self.tables = db.getTables()
         for t in self.tables:
-            self.leftlist.insert(END, t.name)
+            self.leftlist.insert(END, t.tname)
 
     # Returns foodname  selected in right list, or "apples" if none selected
     def getFoodname(self):

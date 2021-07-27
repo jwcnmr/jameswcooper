@@ -4,12 +4,15 @@ DBObjects contains only 4 objects: Database, Query, Table and Results
 The Query class supports replacement of arguments if the string ?0, ?1
 and so forth are in the query. So replaces Apple with Oranges is very simple"""
 
-import MySQLdb
+#import MySQLdb
 from tkinter import ttk, messagebox
 from DBObjects import *
 import tkinter as tk
 from tkinter import *
 from tkinter.ttk import *
+
+from SqltDatabase import SqltDatabase
+
 
 class DButton(Button):
     def __init__(self, foodquery, builder, master=None, **kwargs):
@@ -48,10 +51,7 @@ class Builder():
         for r in rows:
             print("".join(r))
 
-        qstring = ("select foods.foodname, stores.storename, prices.price from foods,"
-                   + "stores, prices where foods.foodkey=prices.foodkey and "
-                   + "stores.storekey = prices.storekey and foods.foodname=?0 "
-                   + " order by price")
+
         qstring = ("select foods.foodname, stores.storename, prices.price from  prices "+
         "join foods on (foods.foodkey=prices.foodkey) "+
         "join stores on  (stores.storekey = prices.storekey ) "+
