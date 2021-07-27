@@ -9,10 +9,6 @@ class Database():
         self.pwd = next(aiter)
         self._db = pymysql.connect(host=self.host, user=self.userid,password=self.pwd)
 
-        #self.host=args[0]
-        #self.userid=args[1]
-        #self.pwd = args[2]
-        #self.dbname = args[3]
         self._cursor = self._db.cursor()
 
     def commit(self):
@@ -168,8 +164,7 @@ class Results():
 class Builder():
     def build(self):
         db = Database("localhost", "newuser", "new_user")
-        db.create("groceries2")
-       # med = Mediator(db)  #keeps the primary key string
+        db.create("groceries")
 
         # Create food table
         foodtable = Table(db, "foods")
