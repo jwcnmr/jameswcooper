@@ -1,15 +1,17 @@
 """Create a 2 button window using classes"""
 import tkinter as tk
-from tkinter import *
-from tkinter import messagebox
-from tkinter import ttk
-from tkinter.ttk import *
+from tkinter import messagebox, LEFT, RIGHT
+from tkinter.ttk import Button, Style
+
 
 
 # derived class from Button that contains empty comd function
+
+
+
 class DButton(Button):
-    def __init__(self, root, **kwargs):
-        super().__init__(root, **kwargs)
+    def __init__(self, master=None, **kwargs):
+        super().__init__(master, **kwargs)
         super().config(command=self.comd)
 
     # abstract method to be called by children
@@ -44,7 +46,7 @@ class QuitButton(DButton):
 # set up the window and user interface
 def buildUI():
     root = tk.Tk()  # get the window
-    root.geometry("300x100+300+300")  # x, y window size and position
+    root.geometry("200x100+300+300")  # x, y window size and position
     root.title("pick one")
     # create Hello button
     slogan = OKButton(root)

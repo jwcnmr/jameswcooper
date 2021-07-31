@@ -5,7 +5,8 @@ import pymysql
 
 class MysqlDatabase(Database):
     def __init__(self, host, username, password,dbname):
-        self._db = pymysql.connect(host=host, user=username, password=password, database=dbname)
+        self._db = pymysql.connect(host=host, user=username,
+                                   password=password, database=dbname)
         self._dbname = dbname
         self._cursor = self._db.cursor()
 

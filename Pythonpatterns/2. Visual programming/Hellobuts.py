@@ -1,7 +1,8 @@
 """Create a 2 button window"""
 import tkinter as tk
-from tkinter import *
-from tkinter import messagebox
+from tkinter import Button, messagebox, LEFT, RIGHT
+#from tkinter.ttk import Button
+import sys
 
 
 # write slogan out in a message box
@@ -15,14 +16,14 @@ root = tk.Tk()  # get the window
 root.geometry("100x100+300+300")  # x, y window size and position
 
 # create Hello button
-slogan = tk.Button(root,
+slogan = Button(root,
                    text="Hello",
                    command=disp_slogan)
 slogan.pack(side=LEFT, padx=10)
 # slogan.pack()
 
 # create exit button with red letters
-button = tk.Button(root,
+button = Button(root,
                    text="QUIT",
                    fg="red",
                    command=sys.exit)

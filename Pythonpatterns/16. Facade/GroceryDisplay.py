@@ -42,7 +42,8 @@ class Builder():
         self.root = root
 
     def build(self):
-        db = MysqlDatabase('localhost', 'newuser', 'new_user','groceries2')
+        db = MysqlDatabase('localhost', 'newuser',
+                           'new_user','groceries')
         self.cursor = db.cursor
         print(self.cursor)
         self.cursor.execute("show tables")
