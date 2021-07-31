@@ -4,12 +4,11 @@ DBObjects contains only 4 objects: Database, Query, Table and Results
 The Query class supports replacement of arguments if the string ?0, ?1
 and so forth are in the query. So replaces Apple with Oranges is very simple"""
 
-import pymysql
-from tkinter import ttk, messagebox
+
 from DBObjects import *
 import tkinter as tk
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import Listbox, GROOVE, SINGLE, NO, END, mainloop
+from tkinter.ttk import Button,Frame, Treeview
 
 from MysqlDatabase import MysqlDatabase
 
