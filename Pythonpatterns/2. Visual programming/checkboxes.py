@@ -12,22 +12,21 @@ class OKButton(Button):
     #print out the list of ordered toppings
     def comd(self):
         for box in self.boxes:
-            print (box.getText(), box.getVar())
+            print (box.text, box.getVar())
 
 """Checkbox class derived from Checkbutton
 includes get methods to get the name var state"""
 class Checkbox(Checkbutton):
     def __init__(self, root, btext, gvar):
         super().__init__(root, text=btext, variable=gvar)
-        self.text=btext
+        self.text = btext
         self.var = gvar
 
         #Internet joke about Pineapple on pizza
         if self.text == "Pineapple":        #prevent Pineapple on pizza
             self.configure(state=DISABLED)
 
-    def getText(self):
-        return self.text
+
     def getVar(self):
         return self.var.get()   #get the value stored in this IntVar
 
@@ -36,14 +35,8 @@ Also creates a list containing the checkboxes
 and passes it to the Order button"""
 class InitUI():
     def __init__(self, root):
-        self.names = []
-        self.names.append( "Cheese")
-        self.names.append("Pepperoni")
-        self.names.append("Mushrooms")
-        self.names.append("Sausage")
-        self.names.append("Peppers")
-        self.names.append("Pineapple")
-
+        self.names = ["Cheese","Pepperoni","Mushrooms",
+                      "Sausage","Peppers","Pineapple"]
         root.title("Pizza")
         root.geometry("200x175")
 
@@ -58,7 +51,6 @@ class InitUI():
 
         #Create the Order button and give it the list of boxes
         OKButton(root, boxes).grid(column=1, row=3, padx=20)
-
         mainloop()
 def main():
     root = Tk()
