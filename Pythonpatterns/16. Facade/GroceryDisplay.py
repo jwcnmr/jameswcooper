@@ -5,10 +5,10 @@ The Query class supports replacement of arguments if the string ?0, ?1
 and so forth are in the query. So replaces Apple with Oranges is very simple"""
 
 
-from DBObjects import *
+from DBobjects import *
 import tkinter as tk
 from tkinter import Listbox, GROOVE, SINGLE, NO, END, mainloop
-from tkinter.ttk import Button,Frame, Treeview
+from tkinter.ttk import Button, Frame, Treeview
 
 from MysqlDatabase import MysqlDatabase
 
@@ -23,26 +23,26 @@ class DButton(Button):
         foodname = self.builder.getFoodname()
         self.query.insertArgs(foodname)
         results = self.query.execute()
-        rows=results.getRows()
+        rows = results.getRows()
         tree = self.builder.getTree()
         # delete old tree entries
         for i in tree.get_children():
             tree.delete(i)
 
-        index=0
+        index = 0
         for row in rows:
             tree.insert("", index, text=row[0], values=(row[1], row[2]))
             index += 1
 
 
 # Builds the user interface
-class Builder():
+class Builder:
     def __init__(self, root):
         self.root = root
 
     def build(self):
         db = MysqlDatabase('localhost', 'newuser',
-                           'new_user','groceries')
+                           'new_user', 'groceries')
         self.cursor = db.cursor
         print(self.cursor)
         self.cursor.execute("show tables")
@@ -54,19 +54,20 @@ class Builder():
                    + "stores, prices where foods.foodkey=prices.foodkey and "
                    + "stores.storekey = prices.storekey and foods.foodname=?0 "
                    + " order by price")
+
         qstring = ("select foods.foodname, stores.storename, prices.price from  prices " +
                    "join foods on (foods.foodkey=prices.foodkey) " +
                    "join stores on  (stores.storekey = prices.storekey ) " +
                    "where foods.foodname=?0 order by price")
         # create the query with replaceable argument
-        self.foodQuery = VariableQuery (self.cursor, qstring)
+        self.foodQuery = VariableQuery(self.cursor, qstring)
 
-        self.root.geometry ("400x300")
+        self.root.geometry("400x300")
         self.root.title("Grocery queries")
 
-        lframe = Frame(self.root,borderwidth=3, relief=GROOVE)
-        lframe.grid(row=0, column=0 )
-        self.leftlist= Listbox(lframe, selectmode=SINGLE)
+        lframe = Frame(self.root, borderwidth=3, relief=GROOVE)
+        lframe.grid(row=0, column=0)
+        self.leftlist = Listbox(lframe, selectmode=SINGLE)
         self.leftlist.pack()
         self.leftlist.bind('<<ListboxSelect>>', self.lbselect)
 
@@ -104,10 +105,10 @@ class Builder():
     # Returns foodname  selected in right list, or "apples" if none selected
     def getFoodname(self):
         index = self.rightlist.curselection()
-        if len(index) >0:
-            foodname:str = self.rightlist.get(index[0])
+        if len(index) > 0:
+            foodname: str = self.rightlist.get(index[0])
         else:
-            foodname ="apples"
+            foodname = "apples"
         return foodname
 
     # return tree for use in query
@@ -117,8 +118,8 @@ class Builder():
     # left list box selected
     # list columns of selected table in middle listbox
     def lbselect(self, evt):
-        index=self.leftlist.curselection()
-        if len(index)>0:
+        index = self.leftlist.curselection()
+        if len(index) > 0:
             self.table = self.tables[index[0]]
             cols = self.table.getColumns()
             self.midlist.delete(0, END)
@@ -126,7 +127,7 @@ class Builder():
                 self.midlist.insert(END, c[0])
 
     # middle list box has been selected
-    # get column contens and display in right listbox
+    # get column contents and display in right listbox
     def mbselect(self, evt):
         index = self.midlist.curselection()
         if len(index) > 0:
@@ -144,6 +145,7 @@ def main():
     bui.build()
     mainloop()
 
-###  Here we go  ####
+
+# ##  Here we go  ####
 if __name__ == "__main__":
     main()
