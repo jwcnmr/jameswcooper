@@ -1,0 +1,50 @@
+Alabama, AL, 1819, Montgomery
+Alaska, AK, 1960, Juneau
+Arizona, AZ, 1912, Phoenix
+Arkansas, AR, 1836, Little Rock
+California, CA, 1850, Sacramento
+Colorado, CO, 1876, Denver
+Connecticut, CT, 1788, Hartford
+Delaware, DE, 1787, Dover
+Florida, FL, 1845, Tallahassee
+Georgia, GA, 1788, Atlanta
+Hawaii, HI, 1959, Honolulu
+Idaho, ID, 1890, Boise
+Illinois, IL, 1818, Springfield
+Indiana, IN, 1816, Indianapolis
+Iowa, IA, 1846, Des Moines
+Kansas, KS, 1861, Topeka
+Kentucky, KY, 1792, Frankfort
+Louisiana, LA, 1812, Baton Rouge
+Maine, ME, 1820, Augusta
+Maryland, MD, 1788, Annapolis
+Massachusetts, MA, 1788, Boston
+Michigan, MI, 1837, Lansing
+Minnesota, MN, 1858, Saint Paul
+Mississippi, MS, 1817, Jackson
+Missouri, MO, 1821, Jefferson City
+Montana, MT, 1889, Helena
+Nebraska, NE, 1867, Lincoln
+Nevada, NV, 1864, Carson City
+New Hampshire, NH, 1788, Concord
+New Jersey, NJ, 1787, Trenton
+New Mexico, NM, 1912, Santa Fe
+New York, NY, 1788, Albany
+North Carolina, NC, 1789, Raleigh
+North Dakota, ND, 1889, Bismarck
+Ohio, OH, 1803, Columbus
+Oklahoma, OK, 1907, Oklahoma City
+Oregon, OR, 1859, Salem
+Pennsylvania, PA, 1787, Harrisburg
+Rhode Island, RI, 1790, Providence
+South Carolina, SC, 1788, Columbia
+South Dakota, SD, 1889, Pierre
+Tennessee, TN, 1796, Nashville
+Texas, TX, 1845, Austin
+Utah, UT, 1896, Salt Lake City
+Vermont, VT, 1791, Montpelier
+Virginia, VA, 1788, Richmond
+Washington, WA, 1889, Olympia
+West Virginia, WV, 1863, Charleston
+Wisconsin, WI, 1848, Madison
+Wyoming, WY, 1890, Cheyenne
