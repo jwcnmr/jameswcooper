@@ -15,7 +15,7 @@ int main() {
 
     ifstream txtFile(FILENAME);  //open input file
     ofstream outFile(OUTFILE);   //open output file
-    
+
 
     if (txtFile.is_open() && outFile.is_open()) {   //if it is open
         string line;

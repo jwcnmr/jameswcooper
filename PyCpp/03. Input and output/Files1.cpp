@@ -20,4 +20,3 @@ int main()
         txtFile.close();                //close the file
     }
 }
-
