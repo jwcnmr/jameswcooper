@@ -2,6 +2,7 @@
 #include "Swimmer.h"
 #include "StraightSeeding.h"
 #include "CircleSeeding.h"
+using std::swap;
 
 StraightSeeding::StraightSeeding(vector <Swimmer*> sw, int nlanes) :Seeding() {
     numLanes = nlanes;
@@ -48,9 +49,7 @@ Swimmer** StraightSeeding::sortUpwards() {
     for (int i = 0; i < swimmers.size(); i++) {
         for (int j = i; j < swimmers.size(); j++) {
             if (swmrs[i]->getTime() > swmrs[j]->getTime()) {
-                Swimmer* swtemp = swmrs[i];
-                swmrs[i] = swmrs[j];
-                swmrs[j] = swtemp;
+                swap(swmrs[i], swmrs[j]);
             }
         }
     }
