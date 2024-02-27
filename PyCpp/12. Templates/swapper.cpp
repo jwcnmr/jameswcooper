@@ -7,7 +7,7 @@ using std::string;
 
 //our own swap template function
 template <typename myType>
-void swap(myType a, myType b) {
+void myswap(myType a, myType b) {
     myType temp = a;
     a = b;
     b = temp;
@@ -15,11 +15,11 @@ void swap(myType a, myType b) {
 
 int main() {
     double a =123; double b = 456;
-    swap(a,b);
+    myswap(a,b);
     cout << "a="<< a <<" b="<< b <<endl;
 
     string fruit1 = "banana"; string fruit2 = "orange";
-    swap(fruit1, fruit2);
+    myswap(fruit1, fruit2);
     cout << "fruit1="<< fruit1 <<" fruit2="<<fruit2<<endl;
     double x=123.45;
 
